@@ -1,0 +1,231 @@
+﻿@model ASP.Net_MVC_page_with_form.Models.Order
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<div class="container">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-6">
+                <h3>Billing Address</h3>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BillingAddress.Name)
+                    @Html.TextBoxFor(model => model.BillingAddress.Name, new { @class = "form-control", placeholder = "Enter your Name here" })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.Name)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BillingAddress.Address)
+                    @Html.TextBoxFor(model => model.BillingAddress.Address, new { @class = "form-control", placeholder = "Enter Address here" })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.Address)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.BillingAddress.Address2, new { @class = "form-control", placeholder = "Enter Address2 here" })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.Address2)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.BillingAddress.City, new { @class = "form-control", placeholder = "Enter City here" })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.City)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.BillingAddress.State, new SelectList(
+                new List<SelectListItem>
+                {
+                new SelectListItem { Text = "Tamilnadu", Value = "Tamilnadu" },
+                new SelectListItem { Text = "Karnataka", Value = "Karnataka" },
+                new SelectListItem { Text = "Kerala", Value = "Kerala" },
+                new SelectListItem { Text = "Andra pradesh", Value = "Andra pradesh" },
+                }, "Value", "Text"), "Select your state", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.State)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.BillingAddress.Mobile, new { @class = "form-control", placeholder = "Enter your Mobile here" })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.Mobile)
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="col-6">
+                <h3>Shipping Address</h3>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShippingAddress.Name)
+                    @Html.TextBoxFor(model => model.ShippingAddress.Name, new { @class = "form-control", placeholder = "Enter your Name here" })
+                    @Html.ValidationMessageFor(model => model.ShippingAddress.Name)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShippingAddress.Address)
+                    @Html.TextBoxFor(model => model.ShippingAddress.Address, new { @class = "form-control", placeholder = "Enter your Address here" })
+                    @Html.ValidationMessageFor(model => model.ShippingAddress.Address)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.ShippingAddress.Address2, new { @class = "form-control", placeholder = "Enter your Address2 here" })
+                    @Html.ValidationMessageFor(model => model.ShippingAddress.Address2)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.ShippingAddress.City, new { @class = "form-control", placeholder = "Enter your City here" })
+                    @Html.ValidationMessageFor(model => model.ShippingAddress.City)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.ShippingAddress.State, new SelectList(
+                new List<SelectListItem>
+                {
+                new SelectListItem { Text = "Tamilnadu", Value = "Tamilnadu" },
+                new SelectListItem { Text = "Karnataka", Value = "Karnataka" },
+                new SelectListItem { Text = "Kerala", Value = "Kerala" },
+                new SelectListItem { Text = "Andra pradesh", Value = "Andra pradesh" },
+                }, "Value", "Text"), "Select your state", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ShippingAddress.State)
+                </div>
+                <br>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.ShippingAddress.Mobile, new { @class = "form-control", placeholder = "Enter your Mobile here" })
+                    @Html.ValidationMessageFor(model => model.ShippingAddress.Mobile)
+                </div>
+            </div>
+        </div>
+        <br>
+        <h3>Products</h3>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.Label("Product")
+                    @Html.DropDownList("productCode", ViewBag.Products as SelectList, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.Label("Quantity")
+                    @Html.TextBox("quantity", null, new { @class = "form-control", type = "number", min = "0", placeholder = "Enter Quantity" })
+                </div>
+            </div>
+            <div class="col-4">
+                <br>
+                <div class="form-group">
+                    <button type="button" id="addProductBtn" class="btn btn-success">Add Product</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>No</th>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Sub Total</th>
+                <th>Action</th>
+            </tr>
+            @for (var i = 0; i < Model.CartItems.Count; i++)
+            {
+                <tr>
+                    <td>@Model.CartItems[i].Product.No</td>
+                    <td>@Model.CartItems[i].Product.Code</td>
+                    <td>@Model.CartItems[i].Product.Name</td>
+                    <td>@Model.CartItems[i].Quantity</td>
+                    <td>@Model.CartItems[i].Product.Sub_Total.ToString("C")</td>
+                    <td>@Model.CartItems[i].Product.Unit_price</td>
+                    <td>
+                        @using (Html.BeginForm("RemoveFromCart", "Home", new { index = i }))
+                        {
+                            <input type="submit" value="Remove" />
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+        <div style="text-align:end">
+            <h3>Total Amount: ₹<span id="totalAmount">0.00</span></h3>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</div>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var Products = [
+            { No: 1, Code: "DEL1109", Name: "DELL Laptop", Sub_Total: 50000.00, Unit_price: 50000 },
+            { No: 2, Code: "LOGI3224", Name: "Logitec mouse", Sub_Total: 1000.00, Unit_price: 500 },
+            { No: 3, Code: "LOGI4343", Name: "Logitec Keyboard", Sub_Total: 1500.00, Unit_price: 1500 }
+        ];
+        var rowNumber = 0;
+        $("#addProductBtn").click(function () {
+            var productCode = $("#productCode").val();
+            var quantity = $("#quantity").val();
+            if (productCode && quantity && quantity > 0) {
+                var productName = $("#productCode option:selected").text();
+                var selectedProduct = Products.find(function (product) {
+                    return product.Code === productCode;
+                });
+                if (selectedProduct) {
+                    rowNumber++;
+                    var unitPrice = selectedProduct.Unit_price;
+                    var subTotal = (quantity * unitPrice).toFixed(2);
+                    var newRow = '<tr>' +
+                        '<td>' + rowNumber + '</td>' +
+                        '<td>' + productCode + '</td>' +
+                        '<td>' + productName + '</td>' +
+                        '<td>' + quantity + '</td>' +
+                        '<td class="unit-price">' + unitPrice.toFixed(2) + '</td>' +
+                        '<td class="sub-total">' + subTotal + '</td>' +
+                        '<td><button type="button" class="btn btn-danger remove-product">Remove</button></td>' +
+                        '</tr>';
+                    $("table tbody").append(newRow);
+                    $("#productCode").val("");
+                    $("#quantity").val("");
+                    updateTotalAmount();
+                } else {
+                    alert("Selected product not found in the product list.");
+                }
+            } else {
+                alert("Please select a product and enter a valid quantity.");
+            }
+        });
+        $("table tbody").on("click", ".remove-product", function () {
+            $(this).closest("tr").remove();
+            updateTotalAmount();
+        });
+        function updateTotalAmount() {
+            var totalAmount = 0;
+            $("table tbody tr").each(function () {
+                var subTotal = parseFloat($(this).find(".sub-total").text());
+                if (!isNaN(subTotal)) {
+                    totalAmount += subTotal;
+                }
+            });
+            $("#totalAmount").text(totalAmount.toFixed(2));
+        }
+    });
+    $("#productCode").change(function () {
+        var selectedProduct = $(this).val();
+        if (selectedProduct) {
+            $.ajax({
+                url: "/Home/GetProductDetails",
+                type: "GET",
+                data: { productCode: selectedProduct },
+                success: function (response) {
+                    if (response) {
+                        $("#unitPrice").text(response.unitPrice.toFixed(2));
+                    } else {
+                        $("#unitPrice").text("0.00");
+                    }
+                },
+                error: function () {
+                    $("#unitPrice").text("0.00");
+                }
+            });
+        } else {
+            $("#unitPrice").text("0.00");
+        }
+    });
+</script>
