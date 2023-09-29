@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.Net MVC page with form", "ASP.Net MVC page with form.csproj", "{7C17468F-5534-4599-912C-32C910088832}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C17468F-5534-4599-912C-32C910088832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C17468F-5534-4599-912C-32C910088832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C17468F-5534-4599-912C-32C910088832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C17468F-5534-4599-912C-32C910088832}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3E707F5-8F5F-4D03-861E-1D89DEB03CFC}
+	EndGlobalSection
+EndGlobal
